@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         ...messages,
       ],
     }
-    const response = await fetch("http://localhost:8080/chat", {
+    const response = await fetch("https://llm.ayehia0.com/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
