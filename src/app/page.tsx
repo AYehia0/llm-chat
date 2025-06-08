@@ -34,6 +34,7 @@ export default function Chat() {
   );
   const { messages, input, handleInputChange, handleSubmit, error } = useChat({
     body: { model },
+    api: "https://llm.ayehia0.com/chat",
   });
 
   return (
