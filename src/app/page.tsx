@@ -33,7 +33,7 @@ export default function Chat() {
     SUPPORTED_MODELS[0]
   );
   const { messages, input, handleInputChange, handleSubmit, error } = useChat({
-    body: { token, model },
+    body: { model },
   });
 
   return (
@@ -62,7 +62,6 @@ export default function Chat() {
                 onChange={handleInputChange}
                 aria-label="ask a question"
                 placeholder="Ask a question..."
-                disabled={!token}
               />
               <button
                 type="submit"
@@ -92,6 +91,7 @@ export default function Chat() {
                 type="button"
                 className={ANCHOR_CLASS_NAME}
                 onClick={() => setTokenOpen(true)}
+                hidden={true}
               >
                 <div className="font-sans text-xs font-medium">
                   {token ? "Change API Key" : "Set API Key"}

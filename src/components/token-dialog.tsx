@@ -15,25 +15,25 @@ export const TokenDialog = ({ open, setOpen, setToken }: Props) => {
     <Dialog
       open={open}
       setOpen={setOpen}
-      title="Set OpenAI API Key"
+      title="Set Groq API Key"
       description={
         <>
-          Since this is a demo app, you will need to provide your own OpenAI API
+          Since this is a demo app, you will need to provide your own Groq API
           Key. This will be saved in your browser&apos;s local storage under the
           name{" "}
           <code className="font-mono text-emerald-900 font-semibold">
             ai-token
           </code>
           . This will only be sent when you ask a question, and never persisted
-          outside of your browser. If you have not obtained your OpenAI API key,
+          outside of your browser. If you have not obtained your Groq API key,
           you can do so by{" "}
           <a
-            href="https://platform.openai.com/signup/"
+            href="https://platform.groq.com/signup"
             className={ANCHOR_CLASS_NAME}
           >
             signing up
           </a>{" "}
-          on the OpenAI website.
+          it`&apos;`s free to get started.
         </>
       }
     >
@@ -42,7 +42,7 @@ export const TokenDialog = ({ open, setOpen, setToken }: Props) => {
           className="font-sans text-sm text-emerald-950 font-semibold mb-2 block"
           htmlFor="token"
         >
-          OpenAI API Key
+          Groq API Key
         </label>
         <input
           id="token"

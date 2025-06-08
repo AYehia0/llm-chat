@@ -12,12 +12,12 @@ export const Nav = () => {
         <div className="p-2 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
           <MarkerCircle className="w-6 h-6" />
         </div>
-        <span className="font-mono font-semibold">LLM Markdown</span>
+        <span className="font-mono font-semibold">StreamLLM</span>
       </a>
       <Link
         href="https://github.com/skovy/llm-markdown"
         target="_blank"
-        aria-label="Open GitHub repository"
+        aria-label="Open Frontend GitHub repository"
         className="p-2 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 transition-colors"
       >
         <GithubLogo className="w-6 h-6" />

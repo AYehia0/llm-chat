@@ -13,9 +13,9 @@ const monospace = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "LLM Markdown",
+  title: "StreamLLM",
   description:
-    "App demo for rendering rich-text (markdown) from a Large Language Model.",
+    "App demo for streaming LLM responses from a Go backend server using Groq API.",
 };
 
 export default function RootLayout({

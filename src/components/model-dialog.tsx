@@ -1,9 +1,10 @@
 import { Dialog } from "./dialog";
 
 export const SUPPORTED_MODELS = [
-  "gpt-3.5-turbo",
-  "gpt-3.5-turbo-16k",
-  "gpt-4",
+  "llama3-8b-8192",
+  "llama3-70b-8192",
+  "mixtral-8x7b-32768",
+  "gemma-7b-it"
 ] as const;
 
 export type SupportedModels = (typeof SUPPORTED_MODELS)[number];
@@ -23,9 +24,8 @@ export const ModelDialog = ({ open, setOpen, model, setModel }: Props) => {
       title="OpenAI Model"
       description={
         <>
-          Choose the OpenAI model to use. Note, you must have access to the
-          model you select. If you are not sure, select{" "}
-          <code className="font-mono text-emerald-950">gpt-3.5-turbo</code>.
+          Choose the Groq model to use. If you are not sure, select{" "}
+          <code className="font-mono text-emerald-950">llama3-8b-8192</code>.
         </>
       }
     >

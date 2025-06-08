@@ -1,12 +1,4 @@
-import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextResponse } from "next/server";
-import {
-  ChatCompletionRequestMessageRoleEnum,
-  Configuration,
-  OpenAIApi,
-} from "openai-edge";
-
-export const runtime = "edge";
 
 const SYSTEM_PROMPT = `You are a general answering assistant that can comply with any request. 
 
@@ -22,41 +14,76 @@ You must always render all equations in this format (LaTeX code blocks) using on
 For example:
 \`\`\`latex
 \\[ F = \\frac{{G \\cdot m_1 \\cdot m_2}}{{r^2}} \\]
-\`\`\`latex
+\`\`\`
 `;
 
+// Using the go local streaming server
 export async function POST(req: Request) {
-  const { messages, token, model = "gpt-3.5-turbo" } = await req.json();
-
-  const configuration = new Configuration({ apiKey: token });
-  const openai = new OpenAIApi(configuration);
+  const { messages, model } = await req.json();
 
   try {
-    const response = await openai.createChatCompletion({
-      model,
-      stream: true,
+    const payload = {
+      model: model,
       messages: [
         {
-          role: ChatCompletionRequestMessageRoleEnum.System,
+          role: "system",
           content: SYSTEM_PROMPT,
         },
         ...messages,
       ],
+    }
+    const response = await fetch("http://localhost:8080/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
     });
 
-    if (response.status >= 300) {
-      const body = await response.json();
+    if (!response.ok || !response.body) {
+      console.error("Non-ok response or missing body from Go server");
       return NextResponse.json(
-        { error: `OpenAI error encountered: ${body?.error?.message}.` },
-        { status: response.status }
+        { error: "Failed to connect to local model." },
+        { status: 500 }
       );
     }
 
-    const stream = OpenAIStream(response);
-    return new StreamingTextResponse(stream);
-  } catch (e) {
-    console.error(e);
+    const reader = response.body.getReader();
 
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              controller.close();
+              break;
+            }
+
+            const decoder = new TextDecoder("utf-8");
+            const textValue = decoder.decode(value, { stream: true });
+            controller.enqueue(encoder.encode(textValue));
+          }
+        } catch (error) {
+          console.error("Error reading from stream:", error);
+          controller.error(error);
+        } finally {
+          reader.releaseLock();
+        }
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Transfer-Encoding": "chunked",
+      },
+    });
+  } catch (e) {
+    console.error("Streaming failed:", e);
     return NextResponse.json(
       { error: "An unexpected error occurred. Please try again later." },
       { status: 500 }
