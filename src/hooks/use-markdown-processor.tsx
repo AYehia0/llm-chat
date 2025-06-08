@@ -1,8 +1,5 @@
 import { Dialog } from "@/components/dialog";
-import { CircleNotch, MathOperations } from "@phosphor-icons/react";
-import CheckFat from "@phosphor-icons/react/dist/icons/CheckFat";
-import Copy from "@phosphor-icons/react/dist/icons/Copy";
-import FlowArrow from "@phosphor-icons/react/dist/icons/FlowArrow";
+import { Copy, FlowArrow, CheckFat, MathOperations, CircleNotch } from "@phosphor-icons/react";
 import { Root } from "hast";
 import "highlight.js/styles/base16/green-screen.css";
 import mermaid from "mermaid";

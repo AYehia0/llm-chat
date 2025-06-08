@@ -11,7 +11,7 @@ import { Nav } from "@/components/nav";
 import { TokenDialog } from "@/components/token-dialog";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { ANCHOR_CLASS_NAME } from "@/hooks/use-markdown-processor";
-import PaperPlaneRight from "@phosphor-icons/react/dist/icons/PaperPlaneRight";
+import { PaperPlaneRight } from "@phosphor-icons/react";
 import { useChat } from "ai/react";
 import { useState } from "react";
 

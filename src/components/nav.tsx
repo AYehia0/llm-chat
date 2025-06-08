@@ -1,5 +1,5 @@
 import { GithubLogo } from "@phosphor-icons/react";
-import MarkerCircle from "@phosphor-icons/react/dist/icons/MarkerCircle";
+import {MarkerCircle} from "@phosphor-icons/react";
 import Link from "next/link";
 
 export const Nav = () => {

@@ -1,4 +1,4 @@
-import X from "@phosphor-icons/react/dist/icons/X";
+import {X} from "@phosphor-icons/react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ReactNode } from "react";
 
